@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 10:33:44 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/21 14:54:28 by cdai             ###   ########.fr       */
+/*   Updated: 2019/11/21 17:26:25 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@ typedef struct		s_flag_data
 	int	minus;
 	int	zero_flag;
 	int	width;
+	int	dot;
 	int	precision;
 }					t_flag_data;
 
 //typedef strut		s_
+//int ft_precision(t_flag_data *data, const char *fmt, va_list *ap);
+int ft_check_conversion(const char *fmt);
+void ft_print(t_flag_data *data, const char *fmt, va_list *ap);
 int	ft_printf(const char *fmt, ...);
 
 #endif

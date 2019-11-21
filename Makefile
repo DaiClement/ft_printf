@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/11/21 14:56:44 by cdai             ###   ########.fr        #
+#    Updated: 2019/11/21 16:34:37 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS	=	\
 			libft/ft_strlen.c\
 			libft/ft_atoi_printf.c\
 			ft_printf.c\
+			ft_printf_utils.c\
 
 BONUSSRCS	=	
 
