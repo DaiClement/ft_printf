@@ -1,0 +1,7 @@
+test*
+a.out*
+*/*.o
+*.o
+*.a
+*.swp
+.DS*
