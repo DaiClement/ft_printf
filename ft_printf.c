@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 10:27:46 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/21 17:26:40 by cdai             ###   ########.fr       */
+/*   Updated: 2019/11/22 12:41:00 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,29 @@ static int			ft_width_precision(t_flag_data *data, const char *fmt, va_list *ap)
 	int		temp;
 
 	i = 0;
+	temp = 0;
 	c = *(fmt + i);
-	while (c == '*' || ft_isdigit(c))
+	while (c && (c == '*' || ft_isdigit(c)))
 	{
-		c = *(fmt + i);
+	//	printf("in while\n");
 		if (c == '*')
 			temp = va_arg(*ap, int);
 		else
 			temp = ft_atoi_printf(fmt, &i);
 		i++;
+		c = *(fmt + i);
+	//printf("valeur de c in ft_width_precision: %i\n", c);
 	}
 	if (data->dot)
 		data->precision = temp;
 	else
 		data->width = temp;
 	i--;
+	//printf("\n\nminus : %i\n", data->minus);
+	//printf("temp : %i\n", temp);
+	//printf("width : %i\n", data->width);
+	//printf("precision : %i\n", data->precision);
+	//printf("dot : %i\n\n\n", data->dot);
 	return (i);
 }
 
@@ -43,7 +51,7 @@ static int			ft_minus_zero(t_flag_data *data, const char *fmt)
 	int i;
 
 	i = 0;
-	while (*(fmt) == '-' || *(fmt) == '0')
+	while (*(fmt + i) == '-' || *(fmt + i) == '0')
 	{
 		if (*(fmt + i) == '-')
 			data->minus = 1;
@@ -87,6 +95,9 @@ static int			ft_print_arg(const char *fmt, va_list *ap)
 			data->dot = 1;
 		i++;
 	}
+	//printf("\n\nminus : %i\n", data->minus);
+	//printf("width : %i\n", data->width);
+	//printf("dot : %i\n\n\n", data->dot);
 	ft_print(data, fmt + i, ap);
 	free(data);
 	return (i);
@@ -113,7 +124,7 @@ int					ft_printf(const char *fmt, ...)
 			{
 				va_end(ap);
 				return (-1);
-			}			
+			}
 			i = i + temp;
 		}
 		else

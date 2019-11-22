@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/11/21 16:34:37 by cdai             ###   ########.fr        #
+#    Updated: 2019/11/22 11:00:34 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	=	\
 			libft/ft_atoi_printf.c\
 			ft_printf.c\
 			ft_printf_utils.c\
+			#ft_printf_utils2.c\
 
 BONUSSRCS	=	
 
@@ -64,10 +65,10 @@ fcleanbonus: clean fclean
 norm:
 		norminette -R CheckForbiddenSourceHeader ft_*.c *.h
 
-test:	all
+test:	re
 		${CC} -Wall -Wextra -Werror test.c -L. -lftprintf && ./a.out | cat -e
 
-testWF:	all
+testWF:	re
 		${CC} test.c -L. -lftprintf && ./a.out | cat -e
 
 commit:
