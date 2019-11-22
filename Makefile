@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/11/22 11:00:34 by cdai             ###   ########.fr        #
+#    Updated: 2019/11/22 16:30:22 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,11 @@ HEADER	=	libftprintf.h
 
 SRCS	=	\
 			libft/ft_atoi.c\
+			libft/ft_itoa.c\
 			libft/ft_isdigit.c\
 			libft/ft_putchar_fd.c\
 			libft/ft_putstr_fd.c\
+			libft/ft_putnbr_fd.c\
 			libft/ft_strlen.c\
 			libft/ft_atoi_printf.c\
 			ft_printf.c\
