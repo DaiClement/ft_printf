@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/11/22 16:30:22 by cdai             ###   ########.fr        #
+#    Updated: 2019/11/25 16:58:29 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,10 @@ SRCS	=	\
 			libft/ft_putnbr_fd.c\
 			libft/ft_strlen.c\
 			libft/ft_atoi_printf.c\
+			libft/ft_itoa_long.c\
 			ft_printf.c\
 			ft_printf_utils.c\
-			#ft_printf_utils2.c\
+			ft_printf_utils2.c\
 
 BONUSSRCS	=	
 
@@ -67,11 +68,18 @@ fcleanbonus: clean fclean
 norm:
 		norminette -R CheckForbiddenSourceHeader ft_*.c *.h
 
+compile: re
+		${CC} test.c -L. -lftprintf
+
 test:	re
-		${CC} -Wall -Wextra -Werror test.c -L. -lftprintf && ./a.out | cat -e
+		${CC} -Wall -Wextra -Werror test.c -L. -lftprintf && ./a.out 0 | cat -e
+		${CC} -Wall -Wextra -Werror test.c -L. -lftprintf && ./a.out 1 | cat -e
 
 testWF:	re
-		${CC} test.c -L. -lftprintf && ./a.out | cat -e
+		${CC} test.c -L. -lftprintf
+		./a.out 0 | cat -e > expected
+		./a.out 1 | cat -e > user.output
+		diff expected user.output
 
 commit:
 		git add -A && git commit

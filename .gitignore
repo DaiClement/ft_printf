@@ -5,3 +5,6 @@ a.out*
 *.a
 *.swp
 .DS*
+diff*
+expected
+user*
