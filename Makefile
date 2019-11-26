@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/11/25 16:58:29 by cdai             ###   ########.fr        #
+#    Updated: 2019/11/26 08:56:05 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS	=	\
 			libft/ft_strlen.c\
 			libft/ft_atoi_printf.c\
 			libft/ft_itoa_long.c\
+			libft/ft_putnbr_printf.c\
+			libft/ft_count_pow.c\
 			ft_printf.c\
 			ft_printf_utils.c\
 			ft_printf_utils2.c\
@@ -67,6 +69,7 @@ fcleanbonus: clean fclean
 
 norm:
 		norminette -R CheckForbiddenSourceHeader ft_*.c *.h
+		norminette -R CheckForbiddenSourceHeader libft/ft_*.c libft/*.h
 
 compile: re
 		${CC} test.c -L. -lftprintf

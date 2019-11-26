@@ -6,13 +6,13 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 16:17:09 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/25 17:01:42 by cdai             ###   ########.fr       */
+/*   Updated: 2019/11/26 09:01:26 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_count_pow10(long n, long *count)
+static void	ft_count_pow10_long(long n, long *count)
 {
 	if (n < 0)
 	{
@@ -26,7 +26,7 @@ static void	ft_count_pow10(long n, long *count)
 	}
 }
 
-static void	ft_sub_itoa_recursive(long n, char *result, long count)
+static void	ft_sub_itoa_long_recursive(long n, char *result, long count)
 {
 	if (n < 0)
 	{
@@ -37,8 +37,8 @@ static void	ft_sub_itoa_recursive(long n, char *result, long count)
 		result[count - 1] = n + 48;
 	else
 	{
-		ft_sub_itoa_recursive(n / 10, result, count - 1);
-		ft_sub_itoa_recursive(n % 10, result, count);
+		ft_sub_itoa_long_recursive(n / 10, result, count - 1);
+		ft_sub_itoa_long_recursive(n % 10, result, count);
 	}
 }
 
@@ -46,7 +46,7 @@ static char	*ft_return_long_min(void)
 {
 	char		*result;
 	const char	long_min[] = "-9223372036854775808";
-	long			i;
+	long		i;
 
 	i = 0;
 	if (!(result = malloc(sizeof(*result) * 21)))
@@ -72,10 +72,10 @@ char		*ft_itoa_long(long n)
 		result = ft_return_long_min();
 		return (result);
 	}
-	ft_count_pow10(n, &count);
+	ft_count_pow10_long(n, &count);
 	if (!(result = malloc(sizeof(*result) * (count + 1))))
 		return (0);
-	ft_sub_itoa_recursive(n, result, count);
+	ft_sub_itoa_long_recursive(n, result, count);
 	result[count] = 0;
 	return (result);
 }

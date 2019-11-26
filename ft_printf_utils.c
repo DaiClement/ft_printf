@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:58:59 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/25 16:56:52 by cdai             ###   ########.fr       */
+/*   Updated: 2019/11/26 09:25:15 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 void		ft_i(t_flag_data *data, va_list *ap, int *result)
 {
-	long	d;
-	char	*str_nbr;
+	int				temp;
+	unsigned int	d;
+	char			*str_nbr;
 
-	d = 0;
-	d = va_arg(*ap, int);
-	if (d >= 0)
+	d = 2147483648;
+	temp = va_arg(*ap, int);
+	if (temp >= 0)
+	{
+		d = temp;
 		ft_i_positive(data, d, result);
+	}	
 	else
 	{
-		if (d == -2147483648)
-			str_nbr = "2147483648";
-		else
-			str_nbr = ft_itoa((int)(-d));
-		ft_i_negative(data, str_nbr, result);
+		d = -temp;
+		ft_i_negative(data, d, result);
 	}
 }
 
@@ -103,11 +104,11 @@ void	ft_print(t_flag_data *data, const char *fmt, va_list *ap, int *result)
 	else if (*fmt == 'u')
 		ft_u(data, ap, result);
 	/*	
-	else if (*fmt == 'p')
+		else if (*fmt == 'p')
 		ft_p(data, ap);
-	else if (*fmt == 'x')
+		else if (*fmt == 'x')
 		ft_x(data, ap);
-	else if (*fmt == 'X')
+		else if (*fmt == 'X')
 		ft_X(data, ap);
 	 */
 }

@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:43:45 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/25 17:51:13 by cdai             ###   ########.fr       */
+/*   Updated: 2019/11/26 08:51:58 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 void (*del)(void *));
 int				ft_atoi_printf(const char *str, int *i);
 char			*ft_itoa_long(long n);
-int				ft_putnbr_printf(int n, int fd);
+int				ft_putnbr_printf(unsigned int n, int fd);
+int				ft_count_pow(unsigned int n, unsigned int pow);
 
 #endif
