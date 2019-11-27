@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_hex_lower.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 16:58:51 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/26 11:40:29 by cdai             ###   ########.fr       */
+/*   Created: 2019/11/26 10:37:23 by cdai              #+#    #+#             */
+/*   Updated: 2019/11/26 10:37:47 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int		ft_putnbr_hex_lower(unsigned int n, int fd)
 {
-	size_t	i;
+	int			i;
+	const char	map_hex[] = "0123456789abcdef";
 
-	if (!s)
-		return (0);
 	i = 0;
-	while (s[i])
-		i++;
+	if (n < 16)
+	{
+		ft_putchar_fd(map_hex[n], fd);
+		return (1);
+	}
+	else
+	{
+		i += ft_putnbr_hex_lower(n / 16, fd);
+		i += ft_putnbr_hex_lower(n % 16, fd);
+	}
 	return (i);
 }

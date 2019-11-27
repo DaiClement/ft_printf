@@ -6,33 +6,13 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:58:59 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/26 09:25:15 by cdai             ###   ########.fr       */
+/*   Updated: 2019/11/26 13:59:27 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_i(t_flag_data *data, va_list *ap, int *result)
-{
-	int				temp;
-	unsigned int	d;
-	char			*str_nbr;
-
-	d = 2147483648;
-	temp = va_arg(*ap, int);
-	if (temp >= 0)
-	{
-		d = temp;
-		ft_i_positive(data, d, result);
-	}	
-	else
-	{
-		d = -temp;
-		ft_i_negative(data, d, result);
-	}
-}
-
-void		ft_c(t_flag_data *data, va_list *ap, int *result)
+void	ft_c(t_flag_data *data, va_list *ap, int *result)
 {
 	char	c;
 	int		i;
@@ -47,17 +27,15 @@ void		ft_c(t_flag_data *data, va_list *ap, int *result)
 		*result = *result + ft_putspace(data->width - 1);
 }
 
-void		ft_s(t_flag_data *data, va_list *ap, int *result)
+void	ft_s(t_flag_data *data, va_list *ap, int *result)
 {
 	char	*s;
-	int		i;
 	int		j;
 
-	i = 0;
 	j = 0;
 	s = va_arg(*ap, char*);
 	if ((data->width == 0 && !data->dot) ||
-			(data->width < (int)ft_strlen(s) && !data->dot))
+		(data->width < (int)ft_strlen(s) && !data->dot))
 		data->width = ft_strlen(s);
 	if (data->precision == 0 && !data->dot)
 		data->precision = ft_strlen(s);
@@ -65,13 +43,19 @@ void		ft_s(t_flag_data *data, va_list *ap, int *result)
 		*result = *result + ft_putspace(data->width - (int)ft_strlen(s));
 	if (data->width < data->precision && !data->width)
 		data->width = data->precision;
-	while (*(s + j) && j < data->width)
+	if (s)
+		while (*(s + j) && j < data->width)
+		{
+			ft_putchar_fd(*(s + j++), 1);
+			*result = *result + 1;
+		}
+	else if (!s && !data->dot && !data->width && !data->precision)
 	{
-		ft_putchar_fd(*(s + j++), 1);
-		*result = *result + 1;
+		ft_putstr_fd("(null)", 1);
+		*result = *result + 6;
 	}
 	if (data->minus && (data->width > data->precision ||
-				data->width != data->precision))
+			data->width != data->precision))
 		*result = *result + ft_putspace(data->width - (int)ft_strlen(s));
 }
 
@@ -103,12 +87,10 @@ void	ft_print(t_flag_data *data, const char *fmt, va_list *ap, int *result)
 		ft_i(data, ap, result);
 	else if (*fmt == 'u')
 		ft_u(data, ap, result);
-	/*	
-		else if (*fmt == 'p')
-		ft_p(data, ap);
-		else if (*fmt == 'x')
-		ft_x(data, ap);
-		else if (*fmt == 'X')
-		ft_X(data, ap);
-	 */
+	else if (*fmt == 'x')
+		ft_x_lower(data, ap, result);
+	else if (*fmt == 'X')
+		ft_x_upper(data, ap, result);
+	else if (*fmt == 'p')
+		ft_p(data, ap, result);
 }

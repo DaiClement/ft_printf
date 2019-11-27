@@ -6,11 +6,31 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:58:59 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/26 09:27:29 by cdai             ###   ########.fr       */
+/*   Updated: 2019/11/26 13:28:59 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	ft_i(t_flag_data *data, va_list *ap, int *result)
+{
+	int				temp;
+	unsigned int	d;
+	char			*str_nbr;
+
+	d = 2147483648;
+	temp = va_arg(*ap, int);
+	if (temp >= 0)
+	{
+		d = temp;
+		ft_i_positive(data, d, result);
+	}
+	else
+	{
+		d = -temp;
+		ft_i_negative(data, d, result);
+	}
+}
 
 void	ft_i_positive(t_flag_data *data, unsigned int d, int *result)
 {

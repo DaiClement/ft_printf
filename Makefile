@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/11/26 08:56:05 by cdai             ###   ########.fr        #
+#    Updated: 2019/11/26 15:03:07 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,23 @@ SRCS	=	\
 			libft/ft_itoa_long.c\
 			libft/ft_putnbr_printf.c\
 			libft/ft_count_pow.c\
+			libft/ft_putnbr_hex_lower.c\
+			libft/ft_putnbr_hex_upper.c\
+			libft/ft_putnbr_hex_long.c\
 			ft_printf.c\
 			ft_printf_utils.c\
 			ft_printf_utils2.c\
+			ft_printf_utils3.c\
 
-BONUSSRCS	=	
+TEST	=	\
+			test.c\
+			test_char.c\
+			test_string.c\
+			test_int.c\
+			test_unsigned.c\
+			test_hex_lower.c\
+			test_hex_upper.c\
+			test_pointer.c\
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -37,7 +49,8 @@ BONUSOBJS	=	${BONUSSRCS:.c=.o}
 
 NAME	=	libftprintf.a
 
-CFLAGS	=	-o -Wall -Wextra -Werror
+CFLAGS	=	-o ${FLAGS}
+FLAGS	=	-Wall -Wextra -Werror
 
 CC		=	gcc
 RM		=	rm -f
@@ -68,20 +81,48 @@ fcleanbonus: clean fclean
 		${RM} ${BONUSOBJS}
 
 norm:
-		norminette -R CheckForbiddenSourceHeader ft_*.c *.h
-		norminette -R CheckForbiddenSourceHeader libft/ft_*.c libft/*.h
+		norminette -R CheckForbiddenSourceHeader ft_printf*.c ft_printf*.h
+#		norminette -R CheckForbiddenSourceHeader libft/ft_*.c libft/*.h
 
 compile: re
 		${CC} test.c -L. -lftprintf
 
 test:	re
-		${CC} -Wall -Wextra -Werror test.c -L. -lftprintf && ./a.out 0 | cat -e
-		${CC} -Wall -Wextra -Werror test.c -L. -lftprintf && ./a.out 1 | cat -e
+		rm -f expected user.output
+		${CC} ${FLAGS} ${TEST} -L. -lftprintf
+		./a.out 0 c | cat -e > expected
+		./a.out 1 c | cat -e > user.output
+		diff expected user.output
+		./a.out 0 s | cat -e > expected
+		./a.out 1 s | cat -e > user.output
+		diff expected user.output
+		./a.out 0 i | cat -e > expected
+		./a.out 1 i | cat -e > user.output
+		diff expected user.output
 
 testWF:	re
-		${CC} test.c -L. -lftprintf
-		./a.out 0 | cat -e > expected
-		./a.out 1 | cat -e > user.output
+		rm -f expected user.output
+		${CC} ${TEST} -L. -lftprintf
+		./a.out 0 c | cat -e > expected
+		./a.out 1 c | cat -e > user.output
+		diff expected user.output
+		./a.out 0 s | cat -e > expected
+		./a.out 1 s | cat -e > user.output
+		diff expected user.output
+		./a.out 0 i | cat -e > expected
+		./a.out 1 i | cat -e > user.output
+		diff expected user.output
+		./a.out 0 u | cat -e > expected
+		./a.out 1 u | cat -e > user.output
+		diff expected user.output
+		./a.out 0 x | cat -e > expected
+		./a.out 1 x | cat -e > user.output
+		diff expected user.output
+		./a.out 0 X | cat -e > expected
+		./a.out 1 X | cat -e > user.output
+		diff expected user.output
+		./a.out 0 p | cat -e > expected
+		./a.out 1 p | cat -e > user.output
 		diff expected user.output
 
 commit:
