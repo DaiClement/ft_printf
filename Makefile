@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/11/26 15:03:07 by cdai             ###   ########.fr        #
+#    Updated: 2019/11/27 12:56:44 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS	=	\
 			ft_printf_utils.c\
 			ft_printf_utils2.c\
 			ft_printf_utils3.c\
+			ft_printf_string.c\
 
 TEST	=	\
 			test.c\

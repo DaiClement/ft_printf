@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:58:59 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/26 13:59:27 by cdai             ###   ########.fr       */
+/*   Updated: 2019/11/27 12:40:38 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,13 @@ void	ft_c(t_flag_data *data, va_list *ap, int *result)
 	c = va_arg(*ap, int);
 	ft_putchar_fd(c, 1);
 	*result = *result + 1;
+	if (data->width < 0)
+	{
+		data->minus = 1;
+		data->width = -data->width;
+	}
 	if (data->minus)
 		*result = *result + ft_putspace(data->width - 1);
-}
-
-void	ft_s(t_flag_data *data, va_list *ap, int *result)
-{
-	char	*s;
-	int		j;
-
-	j = 0;
-	s = va_arg(*ap, char*);
-	if ((data->width == 0 && !data->dot) ||
-		(data->width < (int)ft_strlen(s) && !data->dot))
-		data->width = ft_strlen(s);
-	if (data->precision == 0 && !data->dot)
-		data->precision = ft_strlen(s);
-	if (!data->minus)
-		*result = *result + ft_putspace(data->width - (int)ft_strlen(s));
-	if (data->width < data->precision && !data->width)
-		data->width = data->precision;
-	if (s)
-		while (*(s + j) && j < data->width)
-		{
-			ft_putchar_fd(*(s + j++), 1);
-			*result = *result + 1;
-		}
-	else if (!s && !data->dot && !data->width && !data->precision)
-	{
-		ft_putstr_fd("(null)", 1);
-		*result = *result + 6;
-	}
-	if (data->minus && (data->width > data->precision ||
-			data->width != data->precision))
-		*result = *result + ft_putspace(data->width - (int)ft_strlen(s));
 }
 
 int		ft_check_conversion(const char *fmt)
