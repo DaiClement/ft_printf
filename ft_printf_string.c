@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:28:54 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/27 15:51:33 by cdai             ###   ########.fr       */
+/*   Updated: 2019/11/30 17:51:52 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,19 @@ static int	ft_putspace_after(t_flag_data *data, char *s)
 	int len;
 
 	len = (int)ft_strlen(s);
-	
+	if (data->width < 0)
+	{
+		data->minus = 1;
+		data->width = -data->width;
+	}
 	if (data->minus)
 	{
 		if (data->precision >= len || !data->dot)
-			return ft_putspace(data->width - len);
+			return (ft_putlchar(data->width - len, ' '));
 		else
-			return ft_putspace(data->width - data->precision);
+			return (ft_putlchar(data->width - data->precision, ' '));
 	}
-	return 0;
+	return (0);
 }
 
 static int	ft_printf_string(t_flag_data *data, char *s)
@@ -38,21 +42,20 @@ static int	ft_printf_string(t_flag_data *data, char *s)
 	if (!data->precision && !data->dot)
 	{
 		while (*(s + j) && (j < len))
-    	{
-    		ft_putchar_fd(*(s + j), 1);
+		{
+			ft_putchar_fd(*(s + j), 1);
 			j++;
-    	}
+		}
 	}
 	else
 	{
 		while (*(s + j) && (j < data->precision))
-    	{
-    		ft_putchar_fd(*(s + j), 1);
+		{
+			ft_putchar_fd(*(s + j), 1);
 			j++;
-    	}
-		
+		}
 	}
-	return j;
+	return (j);
 }
 
 static int	ft_putspace_before(t_flag_data *data, char *s)
@@ -61,7 +64,7 @@ static int	ft_putspace_before(t_flag_data *data, char *s)
 
 	len = (int)ft_strlen(s);
 	if (data->minus)
-		return 0;	
+		return (0);
 	else
 	{
 		if (!data->width && !data->precision && !data->dot)
@@ -69,24 +72,21 @@ static int	ft_putspace_before(t_flag_data *data, char *s)
 			data->width = len;
 			data->precision = len;
 		}
-		
 		else if (!data->precision && !data->dot)
-		{
-			data->precision = len;	
-		}
-	}	
+			data->precision = len;
+	}
 	if (data->width > len && data->precision >= len)
-        return (ft_putspace(data->width - len));
+		return (ft_putlchar(data->width - len, ' '));
 	else
-        return (ft_putspace(data->width - data->precision));
-	return 0;
+		return (ft_putlchar(data->width - data->precision, ' '));
+	return (0);
 }
 
 static void	ft_null_pointer(t_flag_data *data, int *result)
 {
 	char	*s;
 
-	s  = "(null)";
+	s = "(null)";
 	*result = *result + ft_putspace_before(data, s);
 	*result = *result + ft_printf_string(data, s);
 	*result = *result + ft_putspace_after(data, s);
@@ -94,11 +94,11 @@ static void	ft_null_pointer(t_flag_data *data, int *result)
 
 void		ft_s(t_flag_data *data, va_list *ap, int *result)
 {
-    char    *s;
+	char	*s;
 
-    s = va_arg(*ap, char*);
+	s = va_arg(*ap, char*);
 	if (!s)
-		return ft_null_pointer(data, result);
+		return (ft_null_pointer(data, result));
 	*result = *result + ft_putspace_before(data, s);
 	*result = *result + ft_printf_string(data, s);
 	*result = *result + ft_putspace_after(data, s);

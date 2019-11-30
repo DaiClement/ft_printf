@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_printf.c                                 :+:      :+:    :+:   */
+/*   ft_printf_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/25 17:46:16 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/26 08:29:02 by cdai             ###   ########.fr       */
+/*   Created: 2019/11/30 11:46:40 by cdai              #+#    #+#             */
+/*   Updated: 2019/11/30 12:37:29 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int		ft_putnbr_printf(unsigned int n, int fd)
+void	ft_c(t_flag_data *data, va_list *ap, int *result)
 {
-	int		i;
+	char	c;
 
-	i = 0;
-	if (n < 10)
+	if (!data->minus)
+		*result = *result + ft_putlchar(data->width - 1, ' ');
+	c = va_arg(*ap, int);
+	ft_putchar_fd(c, 1);
+	*result = *result + 1;
+	if (data->width < 0)
 	{
-		ft_putchar_fd(n + 48, fd);
-		return (1);
+		data->minus = 1;
+		data->width = -data->width;
 	}
-	else
-	{
-		i += ft_putnbr_printf(n / 10, fd);
-		i += ft_putnbr_printf(n % 10, fd);
-	}
-	return (i);
+	if (data->minus)
+		*result = *result + ft_putlchar(data->width - 1, ' ');
 }
