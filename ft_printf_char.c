@@ -6,13 +6,13 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 11:46:40 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/30 12:37:29 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/02 10:34:30 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_c(t_flag_data *data, va_list *ap, int *result)
+void	ft_printf_char(t_flag_data *data, va_list *ap, int *result)
 {
 	char	c;
 

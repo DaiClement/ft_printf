@@ -6,16 +6,12 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/11/30 17:42:22 by cdai             ###   ########.fr        #
+#    Updated: 2019/12/02 15:18:11 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HEADER	=	libftprintf.h
-
-
 SRCS	=	\
 			libft/ft_atoi.c\
-			libft/ft_itoa.c\
 			libft/ft_isdigit.c\
 			libft/ft_putchar_fd.c\
 			libft/ft_putstr_fd.c\
@@ -24,20 +20,17 @@ SRCS	=	\
 			libft/ft_atoi_printf.c\
 			libft/ft_count_pow.c\
 			libft/ft_putlnbr.c\
+			libft/ft_putlnbr_base.c\
 			ft_printf.c\
 			ft_printf_utils.c\
 			ft_printf_char.c\
 			ft_printf_string.c\
-			ft_printf_int.c\
-			ft_printf_int_n.c\
+			ft_printf_int_p.c\
+			ft_i_negative.c\
 			ft_printf_unsigned.c\
-#			libft/ft_itoa_long.c\
-#			libft/ft_count_pow_long.c\
-#			libft/ft_putnbr_hex_lower.c\
-#			libft/ft_putnbr_hex_upper.c\
-#			libft/ft_putnbr_hex_long.c\
-#			ft_printf_utils2.c\
-#			ft_printf_utils3.c\
+			ft_printf_hexa_lower.c\
+			ft_printf_hexa_upper.c\
+			ft_printf_pointer.c\
 
 TEST	=	\
 			test.c\
@@ -45,9 +38,9 @@ TEST	=	\
 			test_string.c\
 			test_int.c\
 			test_unsigned.c\
-#			test_hex_lower.c\
-#			test_hex_upper.c\
-#			test_pointer.c\
+			test_hex_lower.c\
+			test_hex_upper.c\
+			test_pointer.c\
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -88,7 +81,7 @@ fcleanbonus: clean fclean
 
 norm:
 		norminette -R CheckForbiddenSourceHeader ft_printf*.c ft_printf*.h
-#		norminette -R CheckForbiddenSourceHeader libft/ft_*.c libft/*.h
+		norminette -R CheckForbiddenSourceHeader libft/ft_*.c libft/*.h
 
 compile: re
 		${CC} test.c -L. -lftprintf
@@ -99,11 +92,23 @@ test:	re
 		./a.out 0 c | cat -e > expected
 		./a.out 1 c | cat -e > user.output
 		diff expected user.output
-		./a.out 0 s | cat -e > expected
-		./a.out 1 s | cat -e > user.output
+		./a.out 0 s | cat -e >> expected
+		./a.out 1 s | cat -e >> user.output
 		diff expected user.output
-		./a.out 0 i | cat -e > expected
-		./a.out 1 i | cat -e > user.output
+		./a.out 0 i | cat -e >> expected
+		./a.out 1 i | cat -e >> user.output
+		diff expected user.output
+		./a.out 0 u | cat -e >> expected
+		./a.out 1 u | cat -e >> user.output
+		diff expected user.output
+		./a.out 0 x | cat -e >> expected
+		./a.out 1 x | cat -e >> user.output
+		diff expected user.output
+		./a.out 0 X | cat -e >> expected
+		./a.out 1 X | cat -e >> user.output
+		diff expected user.output
+		./a.out 0 p | cat -e >> expected
+		./a.out 1 p | cat -e >> user.output
 		diff expected user.output
 
 testWF:	re ${TESTOBJS}
@@ -112,24 +117,24 @@ testWF:	re ${TESTOBJS}
 		./a.out 0 c | cat -e > expected
 		./a.out 1 c | cat -e > user.output
 		diff expected user.output
-		./a.out 0 s | cat -e > expected
-		./a.out 1 s | cat -e > user.output
+		./a.out 0 s | cat -e >> expected
+		./a.out 1 s | cat -e >> user.output
 		diff expected user.output
-		./a.out 0 i | cat -e > expected
-		./a.out 1 i | cat -e > user.output
+		./a.out 0 i | cat -e >> expected
+		./a.out 1 i | cat -e >> user.output
 		diff expected user.output
-		./a.out 0 u | cat -e > expected
-		./a.out 1 u | cat -e > user.output
+		./a.out 0 u | cat -e >> expected
+		./a.out 1 u | cat -e >> user.output
 		diff expected user.output
-#		./a.out 0 x | cat -e > expected
-#		./a.out 1 x | cat -e > user.output
-#		diff expected user.output
-#		./a.out 0 X | cat -e > expected
-#		./a.out 1 X | cat -e > user.output
-#		diff expected user.output
-#		./a.out 0 p | cat -e > expected
-#		./a.out 1 p | cat -e > user.output
-#		diff expected user.output
+		./a.out 0 x | cat -e >> expected
+		./a.out 1 x | cat -e >> user.output
+		diff expected user.output
+		./a.out 0 X | cat -e >> expected
+		./a.out 1 X | cat -e >> user.output
+		diff expected user.output
+		./a.out 0 p | cat -e >> expected
+		./a.out 1 p | cat -e >> user.output
+		diff expected user.output
 
 commit:
 		git add -A && git commit

@@ -6,13 +6,13 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:58:59 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/30 17:44:19 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/02 15:03:10 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_putlchar(int n, char c)
+int			ft_putlchar(int n, char c)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int		ft_putlchar(int n, char c)
 	return (i);
 }
 
-void	ft_double_percent(t_flag_data *data, int *result)
+static void	ft_double_percent(t_flag_data *data, int *result)
 {
 	if (data->width < 0)
 	{
@@ -37,7 +37,7 @@ void	ft_double_percent(t_flag_data *data, int *result)
 		*result = *result + ft_putlchar(data->width - 1, ' ');
 }
 
-int		ft_check_conversion(const char *fmt)
+int			ft_check_conversion(const char *fmt)
 {
 	const char	*conversion_tab = "cspdiuxX%";
 
@@ -50,24 +50,23 @@ int		ft_check_conversion(const char *fmt)
 	return (0);
 }
 
-void	ft_print(t_flag_data *data, const char *fmt, va_list *ap, int *result)
+void		ft_print(t_flag_data *data, const char *fmt, va_list *ap,
+	int *result)
 {
 	if (*fmt == '%')
 		ft_double_percent(data, result);
 	else if (*fmt == 'c')
-		ft_c(data, ap, result);
+		ft_printf_char(data, ap, result);
 	else if (*fmt == 's')
-		ft_s(data, ap, result);
+		ft_printf_string(data, ap, result);
 	else if (*fmt == 'd' || *fmt == 'i')
-		ft_i(data, ap, result);
+		ft_printf_int(data, ap, result);
 	else if (*fmt == 'u')
-		ft_u(data, ap, result);
-/*
+		ft_printf_unsigned(data, ap, result);
 	else if (*fmt == 'x')
-		ft_x_lower(data, ap, result);
+		ft_printf_hexa_lower(data, ap, result);
 	else if (*fmt == 'X')
-		ft_x_upper(data, ap, result);
+		ft_printf_hexa_upper(data, ap, result);
 	else if (*fmt == 'p')
-		ft_p(data, ap, result);
-*/
+		ft_printf_pointer(data, ap, result);
 }

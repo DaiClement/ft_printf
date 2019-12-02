@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 14:45:12 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/21 15:03:05 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/02 15:07:18 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_atoi_printf(const char *str, int *i)
 {
-	int				result;
+	int	result;
 
 	result = 0;
 	while (ft_isdigit(str[*i]))

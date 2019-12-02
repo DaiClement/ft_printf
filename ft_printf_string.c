@@ -6,13 +6,13 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:28:54 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/30 17:51:52 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/02 10:40:08 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_putspace_after(t_flag_data *data, char *s)
+static int	ft_putspace_after_s(t_flag_data *data, char *s)
 {
 	int len;
 
@@ -32,7 +32,7 @@ static int	ft_putspace_after(t_flag_data *data, char *s)
 	return (0);
 }
 
-static int	ft_printf_string(t_flag_data *data, char *s)
+static int	ft_put_string(t_flag_data *data, char *s)
 {
 	int	j;
 	int len;
@@ -58,7 +58,7 @@ static int	ft_printf_string(t_flag_data *data, char *s)
 	return (j);
 }
 
-static int	ft_putspace_before(t_flag_data *data, char *s)
+static int	ft_putspace_before_s(t_flag_data *data, char *s)
 {
 	int len;
 
@@ -82,24 +82,24 @@ static int	ft_putspace_before(t_flag_data *data, char *s)
 	return (0);
 }
 
-static void	ft_null_pointer(t_flag_data *data, int *result)
+static void	ft_null_pointer_s(t_flag_data *data, int *result)
 {
 	char	*s;
 
 	s = "(null)";
-	*result = *result + ft_putspace_before(data, s);
-	*result = *result + ft_printf_string(data, s);
-	*result = *result + ft_putspace_after(data, s);
+	*result = *result + ft_putspace_before_s(data, s);
+	*result = *result + ft_put_string(data, s);
+	*result = *result + ft_putspace_after_s(data, s);
 }
 
-void		ft_s(t_flag_data *data, va_list *ap, int *result)
+void		ft_printf_string(t_flag_data *data, va_list *ap, int *result)
 {
 	char	*s;
 
 	s = va_arg(*ap, char*);
 	if (!s)
-		return (ft_null_pointer(data, result));
-	*result = *result + ft_putspace_before(data, s);
-	*result = *result + ft_printf_string(data, s);
-	*result = *result + ft_putspace_after(data, s);
+		return (ft_null_pointer_s(data, result));
+	*result = *result + ft_putspace_before_s(data, s);
+	*result = *result + ft_put_string(data, s);
+	*result = *result + ft_putspace_after_s(data, s);
 }

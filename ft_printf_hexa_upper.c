@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_int.c                                    :+:      :+:    :+:   */
+/*   ft_printf_hexa_upper.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/30 17:07:23 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/30 17:54:03 by cdai             ###   ########.fr       */
+/*   Created: 2019/12/02 10:01:08 by cdai              #+#    #+#             */
+/*   Updated: 2019/12/02 15:11:28 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_putspace_after_int(t_flag_data *data, unsigned int d)
+static int	ft_putspace_after_x_upper(t_flag_data *data, unsigned long int d)
 {
 	int len;
 
-	len = ft_count_pow(d, 10);
+	len = ft_count_pow(d, 16);
 	if (data->precision == data->width && data->width < 0)
 		data->precision = 0;
 	if (data->width < 0)
@@ -25,9 +25,7 @@ static int	ft_putspace_after_int(t_flag_data *data, unsigned int d)
 		data->width = -data->width;
 	}
 	if (data->precision < 0)
-	{
 		data->precision = 0;
-	}
 	if (data->minus == 1)
 	{
 		if (data->precision)
@@ -38,11 +36,11 @@ static int	ft_putspace_after_int(t_flag_data *data, unsigned int d)
 	return (0);
 }
 
-int			ft_putzero_int(t_flag_data *data, unsigned int d)
+static int	ft_putzero_x_upper(t_flag_data *data, unsigned long int d)
 {
-	int	len;
+	int len;
 
-	len = ft_count_pow(d, 10);
+	len = ft_count_pow(d, 16);
 	if (!data->minus && data->zero_flag && !data->precision && !data->dot)
 		return (ft_putlchar(data->width - len, '0'));
 	else if (data->precision > len)
@@ -50,31 +48,29 @@ int			ft_putzero_int(t_flag_data *data, unsigned int d)
 	return (0);
 }
 
-static int	ft_putspace_before_int(t_flag_data *data, unsigned int d)
+static int	ft_putspace_before_x_upper(t_flag_data *data, unsigned long int d)
 {
 	int len;
 
-	len = ft_count_pow(d, 10);
+	len = ft_count_pow(d, 16);
 	if (data->minus)
 		return (0);
-	if (!data->zero_flag || data->precision >= len)
+	if (!data->zero_flag || data->dot)
 	{
 		if (data->precision > len)
 			return (ft_putlchar(data->width - data->precision, ' '));
 		else
 			return (ft_putlchar(data->width - len, ' '));
 	}
-	else if (data->dot)
-		return (ft_putlchar(data->width - len, ' '));
 	return (0);
 }
 
-static void	ft_i_positive(t_flag_data *data, unsigned int d, int *result)
+void		ft_printf_hexa_upper(t_flag_data *data, va_list *ap, int *result)
 {
-	int		len;
+	int					i;
+	unsigned long int	d;
 
-	len = ft_count_pow(d, 10);
-	(void)data;
+	d = va_arg(*ap, unsigned int);
 	if (!d && data->dot && !data->precision)
 	{
 		if (data->width < 0)
@@ -82,26 +78,8 @@ static void	ft_i_positive(t_flag_data *data, unsigned int d, int *result)
 		*result = *result + ft_putlchar(data->width, ' ');
 		return ;
 	}
-	*result = *result + ft_putspace_before_int(data, d);
-	*result = *result + ft_putzero_int(data, d);
-	*result = *result + ft_putlnbr(d, 1);
-	*result = *result + ft_putspace_after_int(data, d);
-}
-
-void		ft_i(t_flag_data *data, va_list *ap, int *result)
-{
-	int				temp;
-	unsigned int	d;
-
-	temp = va_arg(*ap, int);
-	if (temp >= 0)
-	{
-		d = temp;
-		ft_i_positive(data, d, result);
-	}
-	else
-	{
-		d = -temp;
-		ft_i_negative(data, d, result);
-	}
+	*result = *result + ft_putspace_before_x_upper(data, d);
+	*result = *result + ft_putzero_x_upper(data, d);
+	*result = *result + ft_putlnbr_base(d, 1, "0123456789ABCDEF");
+	*result = *result + ft_putspace_after_x_upper(data, d);
 }
