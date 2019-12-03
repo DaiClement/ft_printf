@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/12/03 14:40:39 by cdai             ###   ########.fr        #
+#    Updated: 2019/12/03 14:59:58 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ fcleanbonus: clean fclean
 		${RM} ${BONUSOBJS}
 
 norm:
-		norminette -R CheckForbiddenSourceHeader ft_printf*.c ft_printf*.h
+		norminette -R CheckForbiddenSourceHeader ft_printf*.c ft_printf*.h ft_i_negative.c
 		norminette -R CheckForbiddenSourceHeader libft/ft_*.c libft/*.h
 
 compile: re

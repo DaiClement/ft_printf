@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:16:41 by cdai              #+#    #+#             */
-/*   Updated: 2019/12/03 14:33:13 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 14:57:30 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int	ft_putspace_before_x_lower(t_flag_data *data, unsigned long int d)
 
 void		ft_printf_hexa_lower(t_flag_data *data, va_list *ap, int *result)
 {
-	int					i;
 	unsigned long int	d;
 
 	d = va_arg(*ap, unsigned int);

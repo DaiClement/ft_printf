@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 11:06:36 by cdai              #+#    #+#             */
-/*   Updated: 2019/12/02 12:17:33 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 14:59:10 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	ft_putspace_before_p(t_flag_data *data, unsigned long int d)
 
 void		ft_printf_pointer(t_flag_data *data, va_list *ap, int *result)
 {
-	int					i;
 	unsigned long int	d;
 
 	d = va_arg(*ap, unsigned long int);

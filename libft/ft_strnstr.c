@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:34:51 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/11 10:59:44 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 15:03:19 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;
 	size_t	j;
-	char	*result;
 
 	i = 0;
-	result = 0;
 	if (!needle[i])
 		return ((char *)haystack);
 	if (len)

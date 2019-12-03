@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:07:23 by cdai              #+#    #+#             */
-/*   Updated: 2019/12/03 14:38:38 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 14:57:59 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,6 @@ static int	ft_putspace_before_int_p(t_flag_data *data, unsigned int d)
 
 static void	ft_i_positive(t_flag_data *data, unsigned int d, int *result)
 {
-	int		len;
-
-	len = ft_count_pow(d, 10);
 	if (!d && data->dot && !data->precision)
 	{
 		if (data->width < 0)

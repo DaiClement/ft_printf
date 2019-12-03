@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:28:34 by cdai              #+#    #+#             */
-/*   Updated: 2019/12/03 14:40:22 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 14:58:44 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,9 @@ static int	ft_putspace_before_u(t_flag_data *data, unsigned int d)
 
 void		ft_printf_unsigned(t_flag_data *data, va_list *ap, int *result)
 {
-	int				len;
 	unsigned int	d;
 
 	d = va_arg(*ap, unsigned int);
-	len = ft_count_pow(d, 10);
 	if (!d && data->dot && !data->precision)
 	{
 		if (data->width < 0)

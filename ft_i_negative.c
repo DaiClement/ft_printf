@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 10:46:05 by cdai              #+#    #+#             */
-/*   Updated: 2019/12/03 14:17:08 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 15:01:45 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,10 @@ static int	ft_putzero_int_n(t_flag_data *data, unsigned int d)
 	int len;
 
 	len = ft_count_pow(d, 10);
-/*
-	if (!data->minus && data->zero_flag && !data->precision && !data->dot)
-		return (ft_putlchar(data->width - len - 1, '0'));
-	else if (data->precision > len)
+	if (data->precision > len)    if (data->precision > len)
 		return (ft_putlchar(data->precision - len, '0'));
-*/
-    if (data->precision > len)    if (data->precision > len)
-        return (ft_putlchar(data->precision - len, '0'));
-    if (data->zero_flag && (!data->dot || data->precision > len))
-        return (ft_putlchar(data->width - len - 1, '0'));
+	if (data->zero_flag && (!data->dot || data->precision > len))
+		return (ft_putlchar(data->width - len - 1, '0'));
 	return (0);
 }
 
@@ -59,50 +53,25 @@ static int	ft_putspace_before_int_n(t_flag_data *data, unsigned int d)
 	len = ft_count_pow(d, 10);
 	if (data->minus)
 		return (0);
-/*	
-	if (!data->zero_flag || data->dot)
+	if (data->precision < 0)
+	{
+		data->dot = 0;
+		data->precision = ft_count_pow(d, 16);
+	}
+	if (data->dot)
 	{
 		if (data->precision > len)
 			return (ft_putlchar(data->width - data->precision - 1, ' '));
 		else
 			return (ft_putlchar(data->width - len - 1, ' '));
 	}
-*/
-	if (data->precision < 0)
-    {
-        data->dot = 0;
-        data->precision = ft_count_pow(d, 16);
-    }
-    if (data->zero_flag)
-    {
-        if (data->dot)
-        {
-            if (data->precision > len)
-                return (ft_putlchar(data->width - data->precision - 1, ' '));
-            else
-                return (ft_putlchar(data->width - len - 1, ' '));
-        }
-    }
-    else if (!data->zero_flag)
-    {
-        if (data->dot)
-        {
-            if (data->precision > len)
-                return (ft_putlchar(data->width - data->precision - 1, ' '));
-            else
-                return (ft_putlchar(data->width - len - 1, ' '));
-        }
-        else
-            return (ft_putlchar(data->width - len - 1, ' '));
-    }
+	else if (!data->zero_flag)
+		return (ft_putlchar(data->width - len - 1, ' '));
 	return (0);
 }
 
 void		ft_i_negative(t_flag_data *data, unsigned int d, int *result)
 {
-	int	len;
-
-	len = ft_count_pow(d, 10);
 	if (!d && data->dot && !data->precision)
 	{
 		if (data->width < 0)
