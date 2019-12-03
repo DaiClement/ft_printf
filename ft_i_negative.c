@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 10:46:05 by cdai              #+#    #+#             */
-/*   Updated: 2019/12/03 15:01:45 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 15:11:57 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_putzero_int_n(t_flag_data *data, unsigned int d)
 	int len;
 
 	len = ft_count_pow(d, 10);
-	if (data->precision > len)    if (data->precision > len)
+	if (data->precision > len)
 		return (ft_putlchar(data->precision - len, '0'));
 	if (data->zero_flag && (!data->dot || data->precision > len))
 		return (ft_putlchar(data->width - len - 1, '0'));
