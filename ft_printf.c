@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 10:27:46 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/30 11:46:03 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 13:49:16 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int			ft_print_arg(const char *fmt, va_list *ap, int *result)
 	ft_init_data(&data);
 	while (!ft_check_conversion(fmt + i) && *(fmt + i))
 	{
-		if (*(fmt + i) == '-' || *(fmt + i) == '0')
+		if (*(fmt + i) == '-' || (*(fmt + i) == '0' && !data.dot))
 			i = i + ft_minus_zero(&data, fmt + i);
 		else if (*(fmt + i) == '*' || ft_isdigit(*(fmt + i)))
 			i = i + ft_width_precision(&data, fmt + i, ap);

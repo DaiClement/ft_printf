@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:28:54 by cdai              #+#    #+#             */
-/*   Updated: 2019/12/02 10:40:08 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 12:07:32 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int	ft_putspace_before_s(t_flag_data *data, char *s)
 	int len;
 
 	len = (int)ft_strlen(s);
+	if (data->precision < 0)
+		data->precision = (int)ft_strlen(s);
 	if (data->minus)
 		return (0);
 	else
@@ -87,6 +89,8 @@ static void	ft_null_pointer_s(t_flag_data *data, int *result)
 	char	*s;
 
 	s = "(null)";
+	if (data->precision < 0)
+		data->precision = 6;
 	*result = *result + ft_putspace_before_s(data, s);
 	*result = *result + ft_put_string(data, s);
 	*result = *result + ft_putspace_after_s(data, s);
