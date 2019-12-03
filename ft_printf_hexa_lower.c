@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:16:41 by cdai              #+#    #+#             */
-/*   Updated: 2019/12/03 14:07:34 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 14:33:13 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ static int	ft_putspace_before_x_lower(t_flag_data *data, unsigned long int d)
 	int len;
 
 	len = ft_count_pow(d, 16);
-//ft_printf("\nzero_flag : %d\nminus : %d\nwidth : %d\ndot : %d\nprecision : %d\n",
-//data->zero_flag, data->minus, data->width, data->dot, data->precision);
 	if (data->minus)
 		return (0);
 	if (data->precision < 0)
@@ -60,28 +58,15 @@ static int	ft_putspace_before_x_lower(t_flag_data *data, unsigned long int d)
 		data->dot = 0;
 		data->precision = ft_count_pow(d, 16);
 	}
-	if (data->zero_flag)
+	if (data->dot)
 	{
-		if (data->dot)
-		{
-			if (data->precision > len)
-				return (ft_putlchar(data->width - data->precision, ' '));
-			else
-				return (ft_putlchar(data->width - len, ' '));
-		}
-	}
-	else if (!data->zero_flag)
-	{
-		if (data->dot)
-		{
-			if (data->precision > len)
-				return (ft_putlchar(data->width - data->precision, ' '));
-			else
-				return (ft_putlchar(data->width - len, ' '));
-		}
+		if (data->precision > len)
+			return (ft_putlchar(data->width - data->precision, ' '));
 		else
 			return (ft_putlchar(data->width - len, ' '));
 	}
+	else if (!data->zero_flag)
+		return (ft_putlchar(data->width - len, ' '));
 	return (0);
 }
 

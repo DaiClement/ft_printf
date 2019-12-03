@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:28:34 by cdai              #+#    #+#             */
-/*   Updated: 2019/12/03 13:58:59 by cdai             ###   ########.fr       */
+/*   Updated: 2019/12/03 14:40:22 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,10 @@ static int	ft_putzero_u(t_flag_data *data, unsigned int d)
 	int len;
 
 	len = ft_count_pow(d, 10);
-/*
-	if (!data->minus && data->zero_flag && !data->precision && !data->dot)
-		return (ft_putlchar(data->width - len, '0'));
-	else if (data->precision > len)
-		return (ft_putlchar(data->precision - len, '0'));
-*/
 	if (data->precision > len)
-        return (ft_putlchar(data->precision - len, '0'));
-    if (data->zero_flag && (!data->dot || data->precision > len))
-        return (ft_putlchar(data->width - len, '0'));
+		return (ft_putlchar(data->precision - len, '0'));
+	if (data->zero_flag && (!data->dot || data->precision > len))
+		return (ft_putlchar(data->width - len, '0'));
 	return (0);
 }
 
@@ -61,42 +55,20 @@ static int	ft_putspace_before_u(t_flag_data *data, unsigned int d)
 	len = ft_count_pow(d, 10);
 	if (data->minus)
 		return (0);
-/*
-	if (!data->zero_flag || data->dot)
+	if (data->precision < 0)
+	{
+		data->dot = 0;
+		data->precision = ft_count_pow(d, 16);
+	}
+	if (data->dot)
 	{
 		if (data->precision > len)
 			return (ft_putlchar(data->width - data->precision, ' '));
 		else
 			return (ft_putlchar(data->width - len, ' '));
 	}
-*/
-	if (data->precision < 0)
-    {
-        data->dot = 0;
-        data->precision = ft_count_pow(d, 16);
-    }
-	if (data->zero_flag)
-    {
-        if (data->dot)
-        {
-            if (data->precision > len)
-                return (ft_putlchar(data->width - data->precision, ' '));
-            else
-                return (ft_putlchar(data->width - len, ' '));
-        }
-    }
 	else if (!data->zero_flag)
-    {
-        if (data->dot)
-        {
-            if (data->precision > len)
-                return (ft_putlchar(data->width - data->precision, ' '));
-            else
-                return (ft_putlchar(data->width - len, ' '));
-        }
-        else
-            return (ft_putlchar(data->width - len, ' '));
-    }
+		return (ft_putlchar(data->width - len, ' '));
 	return (0);
 }
 
