@@ -6,21 +6,11 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/12/03 14:59:58 by cdai             ###   ########.fr        #
+#    Updated: 2019/12/04 11:10:41 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	=	\
-			libft/ft_atoi.c\
-			libft/ft_isdigit.c\
-			libft/ft_putchar_fd.c\
-			libft/ft_putstr_fd.c\
-			libft/ft_putnbr_fd.c\
-			libft/ft_strlen.c\
-			libft/ft_atoi_printf.c\
-			libft/ft_count_pow.c\
-			libft/ft_putlnbr.c\
-			libft/ft_putlnbr_base.c\
 			ft_printf.c\
 			ft_printf_utils.c\
 			ft_printf_char.c\
@@ -31,6 +21,20 @@ SRCS	=	\
 			ft_printf_hexa_lower.c\
 			ft_printf_hexa_upper.c\
 			ft_printf_pointer.c\
+
+PATH_LIBFT=	./libft/
+
+LIBFTSRCS=	\
+			${PATH_LIBFT}ft_atoi.c\
+			${PATH_LIBFT}ft_isdigit.c\
+			${PATH_LIBFT}ft_putchar_fd.c\
+			${PATH_LIBFT}ft_putstr_fd.c\
+			${PATH_LIBFT}ft_putnbr_fd.c\
+			${PATH_LIBFT}ft_strlen.c\
+			${PATH_LIBFT}ft_atoi_printf.c\
+			${PATH_LIBFT}ft_count_pow.c\
+			${PATH_LIBFT}ft_putlnbr.c\
+			${PATH_LIBFT}ft_putlnbr_base.c\
 
 TEST	=	\
 			test.c\
@@ -44,7 +48,7 @@ TEST	=	\
 
 OBJS	=	${SRCS:.c=.o}
 
-BONUSOBJS	=	${BONUSSRCS:.c=.o}
+LIBFTOBJS=	${LIBFTSRCS:.c=.o}
 
 NAME	=	libftprintf.a
 
@@ -59,25 +63,27 @@ RANLIB	=	ranlib
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-${NAME}: ${OBJS}
-		${AR} ${NAME} ${OBJS}
+${NAME}: ${OBJS} ${LIBFTOBJS}
+		make -C libft
+		${AR} ${NAME} ${OBJS} ${LIBFTOBJS}
 		${RANLIB} ${NAME}
 
 all:	${NAME}
 
 clean:
+		make clean -C libft
 		${RM} ${OBJS}
 
 fclean:	clean
+		make fclean -C libft
 		${RM} ${NAME}
 
 re:		fclean all
 
-bonus:	${OBJS} ${BONUSOBJS}
-		${AR} ${NAME} ${OBJS} ${BONUSOBJS}
+bonus:	${OBJS}
+		${AR} ${NAME} ${OBJS}
 
 fcleanbonus: clean fclean
-		${RM} ${BONUSOBJS}
 
 norm:
 		norminette -R CheckForbiddenSourceHeader ft_printf*.c ft_printf*.h ft_i_negative.c
