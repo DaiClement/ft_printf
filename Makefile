@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2019/12/04 11:10:41 by cdai             ###   ########.fr        #
+#    Updated: 2019/12/04 11:34:15 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,8 +80,7 @@ fclean:	clean
 
 re:		fclean all
 
-bonus:	${OBJS}
-		${AR} ${NAME} ${OBJS}
+bonus:	all
 
 fcleanbonus: clean fclean
 
